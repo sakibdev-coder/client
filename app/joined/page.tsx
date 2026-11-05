@@ -29,7 +29,20 @@ export default function Joined() {
   }, [loading, user, router]);
 
   if (loading || (!user && !error)) {
-    return <section className="page"><p>Loading your joined events...</p></section>;
+    return (
+      <section className="page">
+        <div className="pageintro">
+          <span className="eyebrow">YOUR CALENDAR</span>
+          <h1>Joined events</h1>
+          <p>These are the moments you have chosen to show up for, sorted by date.</p>
+        </div>
+        <div className="skeletongrid">
+          {[1, 2, 3].map(i => (
+            <div className="skeleton h-80 w-full" key={i} />
+          ))}
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -39,11 +52,21 @@ export default function Joined() {
         <h1>Joined events</h1>
         <p>These are the moments you have chosen to show up for, sorted by date.</p>
       </div>
-      {error ? <p className="error" role="alert">{error}</p> : loadingEvents ? <p className="empty">Loading your joined events...</p> : events.length ? (
+      {error ? (
+        <p className="error" role="alert">{error}</p>
+      ) : loadingEvents ? (
+        <div className="skeletongrid">
+          {[1, 2, 3].map(i => (
+            <div className="skeleton h-80 w-full" key={i} />
+          ))}
+        </div>
+      ) : events.length ? (
         <div className="grid">
           {events.map(event => <EventCard key={event.id} event={event} />)}
         </div>
-      ) : <p className="empty">Events you join will appear here.</p>}
+      ) : (
+        <p className="empty">Events you join will appear here.</p>
+      )}
     </section>
   );
 }

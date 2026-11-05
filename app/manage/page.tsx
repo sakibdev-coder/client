@@ -39,7 +39,25 @@ export default function Manage() {
   if (loading || (!user && !message)) {
     return (
       <section className="page">
-        <p>Loading your events...</p>
+        <div className="pageintro row">
+          <div>
+            <span className="eyebrow">YOUR IMPACT</span>
+            <h1>Manage events</h1>
+            <p>Update or remove the events you created.</p>
+          </div>
+          <Link className="btn btn-primary" href="/create">
+            + New event
+          </Link>
+        </div>
+        <div className="manage-list">
+          {[1, 2, 3].map(i => (
+            <div
+              key={i}
+              className="manage-item skeleton"
+              style={{ height: '96px', width: '100%' }}
+            />
+          ))}
+        </div>
       </section>
     );
   }
@@ -84,7 +102,15 @@ export default function Manage() {
       )}
 
       {loadingEvents ? (
-        <p className="empty">Loading your events...</p>
+        <div className="manage-list">
+          {[1, 2, 3].map(i => (
+            <div
+              key={i}
+              className="manage-item skeleton"
+              style={{ height: '96px', width: '100%' }}
+            />
+          ))}
+        </div>
       ) : events.length ? (
         <div className="manage-list">
           {events.map(event => (

@@ -25,9 +25,46 @@ export default function EventDetails() {
   }, [id]);
 
   if (!event) {
+    if (message) {
+      return (
+        <section className="page">
+          <p className="error" role="alert">
+            {message}
+          </p>
+          <Link className="backlink" href="/events">
+            ← Back to events
+          </Link>
+        </section>
+      );
+    }
     return (
-      <section className="page">
-        <p>{message || 'Loading event details...'}</p>
+      <section className="detailpage">
+        <div
+          className="skeleton detailimage"
+          style={{ width: '100%', height: '540px' }}
+        />
+        <div className="detailcontent">
+          <div
+            className="skeleton"
+            style={{ height: '24px', width: '100px', marginBottom: '16px', borderRadius: '4px' }}
+          />
+          <div
+            className="skeleton"
+            style={{ height: '48px', width: '85%', marginBottom: '20px', borderRadius: '4px' }}
+          />
+          <div
+            className="skeleton"
+            style={{ height: '90px', width: '100%', marginBottom: '28px', borderRadius: '4px' }}
+          />
+          <div
+            className="skeleton"
+            style={{ height: '110px', width: '100%', marginBottom: '28px', borderRadius: '4px' }}
+          />
+          <div
+            className="skeleton"
+            style={{ height: '46px', width: '180px', borderRadius: '4px' }}
+          />
+        </div>
       </section>
     );
   }
