@@ -111,6 +111,31 @@ export default function EventDetails() {
     }
   };
 
+  const handleShare = async () => {
+    const url = typeof window !== 'undefined' ? window.location.href : '';
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: event.title,
+          text: `Join "${event.title}" on Kindred Community!`,
+          url,
+        });
+      } catch (err) {
+        if (err instanceof Error && err.name !== 'AbortError') {
+          await navigator.clipboard.writeText(url);
+          toast.success('Event link copied to clipboard! 📋');
+        }
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(url);
+        toast.success('Event link copied to clipboard! 📋');
+      } catch {
+        toast.error('Unable to copy link.');
+      }
+    }
+  };
+
   return (
     <section className="detailpage">
       <img className="detailimage" src={event.image} alt={event.title} />
@@ -152,6 +177,14 @@ export default function EventDetails() {
           >
             📅 Add to Calendar
           </a>
+          <button
+            type="button"
+            className="btn btn-outline"
+            onClick={handleShare}
+            title="Share this event with others"
+          >
+            🔗 Share Event
+          </button>
         </div>
         {message && (
           <p className="notice" role="status">
