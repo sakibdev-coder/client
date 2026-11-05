@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { api, EventItem } from '../../lib/api';
 import { EventCard } from '../../components/EventCard';
@@ -65,7 +66,38 @@ export default function Joined() {
           {events.map(event => <EventCard key={event.id} event={event} />)}
         </div>
       ) : (
-        <p className="empty">Events you join will appear here.</p>
+        <div
+          className="empty"
+          style={{
+            textAlign: 'center',
+            padding: '50px 20px',
+            background: 'var(--card)',
+            border: '1px solid var(--line)',
+            borderRadius: '12px',
+            maxWidth: '560px',
+            margin: '20px auto 0',
+          }}
+        >
+          <div style={{ fontSize: '44px', marginBottom: '14px' }}>🗓️</div>
+          <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px' }}>
+            No joined events yet
+          </h2>
+          <p
+            className="muted"
+            style={{
+              fontSize: '14px',
+              lineHeight: 1.6,
+              maxWidth: '420px',
+              margin: '0 auto 24px',
+            }}
+          >
+            When you register for cleanup drives, tree plantations, or community programs,
+            they will show up here in your personal schedule.
+          </p>
+          <Link href="/events" className="btn btn-primary">
+            Explore Upcoming Events →
+          </Link>
+        </div>
       )}
     </section>
   );
