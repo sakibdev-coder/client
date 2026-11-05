@@ -7,6 +7,22 @@ import toast from 'react-hot-toast';
 import { api, EventItem } from '../../../lib/api';
 import { useAuth } from '../../../components/AuthProvider';
 
+function getGoogleCalendarUrl(event: EventItem) {
+  const start = new Date(event.date);
+  const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+  const formatTime = (d: Date) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: event.title,
+    details: `${event.description}\n\nOrganised by: ${event.creatorName}`,
+    location: event.location,
+    dates: `${formatTime(start)}/${formatTime(end)}`,
+  });
+
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
 export default function EventDetails() {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
@@ -119,13 +135,24 @@ export default function EventDetails() {
             {event.creatorName}
           </span>
         </div>
-        <button className="btn btn-primary" disabled={joining} onClick={join}>
-          {!user
-            ? 'Log in to join →'
-            : joining
-            ? 'Joining...'
-            : 'Join this event →'}
-        </button>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <button className="btn btn-primary" disabled={joining} onClick={join}>
+            {!user
+              ? 'Log in to join →'
+              : joining
+              ? 'Joining...'
+              : 'Join this event →'}
+          </button>
+          <a
+            href={getGoogleCalendarUrl(event)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-outline"
+            title="Add this event to your Google Calendar"
+          >
+            📅 Add to Calendar
+          </a>
+        </div>
         {message && (
           <p className="notice" role="status">
             {message}
