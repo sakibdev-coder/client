@@ -124,15 +124,19 @@ export function Navbar() {
                 role="button"
                 className="site-avatar"
                 aria-label={`Account menu for ${user.name}`}
+                title={user.name}
               >
-                <span className="site-avatar-photo">
+                <span className="site-avatar-photo" title={user.name}>
                   {user.photo ? (
-                    <img src={user.photo} alt="" />
+                    <img src={user.photo} alt={user.name} />
                   ) : (
                     <span>{user.name.charAt(0).toUpperCase()}</span>
                   )}
                 </span>
                 <span className="site-user-name">{firstName}</span>
+                <span className="profile-tooltip" aria-hidden="true">
+                  {user.name}
+                </span>
               </div>
               <ul
                 tabIndex={0}

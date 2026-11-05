@@ -196,10 +196,16 @@
   z-index: 100;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
-.profile-wrapper:hover .profile-tooltip {
+.profile-wrapper:hover .profile-tooltip,
+.site-account:hover .profile-tooltip,
+.site-avatar:hover .profile-tooltip {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(2px);
+}
+.site-account:focus-within .profile-tooltip {
+  opacity: 0;
+  visibility: hidden;
 }
 .profile-dropdown {
   position: absolute;
