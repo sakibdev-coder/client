@@ -11,6 +11,7 @@ type AuthContext = {
   signIn: (email: string, password: string) => Promise<void>;
   signInWithGoogle: (code: string) => Promise<void>;
   register: (name: string, email: string, password: string, photo?: string) => Promise<void>;
+  updateProfile: (name: string, photo?: string) => Promise<void>;
   signOut: () => void;
 };
 
@@ -20,6 +21,7 @@ const Context = createContext<AuthContext>({
   signIn: async () => {},
   signInWithGoogle: async () => {},
   register: async () => {},
+  updateProfile: async () => {},
   signOut: () => {},
 });
 
@@ -74,13 +76,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     save(data);
   };
 
+  const updateProfile = async (name: string, photo?: string) => {
+    const photoValue = (photo || '').trim();
+    const data = await api<{ user: User; token: string }>('/auth/profile', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        name: name.trim(),
+        photo: photoValue,
+        photoURL: photoValue,
+      }),
+    });
+    save(data);
+  };
+
   const signOut = () => {
     localStorage.removeItem('kindred-token');
     setUser(null);
   };
 
   return (
-    <Context.Provider value={{ user, loading, signIn, signInWithGoogle, register, signOut }}>
+    <Context.Provider
+      value={{
+        user,
+        loading,
+        signIn,
+        signInWithGoogle,
+        register,
+        updateProfile,
+        signOut,
+      }}
+    >
       {children}
     </Context.Provider>
   );

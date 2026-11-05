@@ -147,6 +147,9 @@ export function Navbar() {
                   <small>{user.email}</small>
                 </li>
                 <li>
+                  <Link href="/profile">My Profile</Link>
+                </li>
+                <li>
                   <Link href="/create">Create event</Link>
                 </li>
                 <li>
@@ -188,9 +191,14 @@ export function Navbar() {
             </Link>
           ))}
           {user ? (
-            <button type="button" onClick={handleSignOut}>
-              Log out
-            </button>
+            <>
+              <Link href="/profile" onClick={() => setMenuOpen(false)}>
+                My Profile
+              </Link>
+              <button type="button" onClick={handleSignOut}>
+                Log out
+              </button>
+            </>
           ) : null}
         </nav>
       </div>
