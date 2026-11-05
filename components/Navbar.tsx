@@ -7,10 +7,16 @@ import toast from 'react-hot-toast';
 import { useAuth } from './AuthProvider';
 import { useTheme } from './ThemeProvider';
 
-const guestLinks = [{ href: '/events', label: 'Upcoming' }];
+const guestLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/events', label: 'Upcoming Events' },
+  { href: '/#impact', label: 'Our Impact' },
+  { href: '/#features', label: 'How It Works' },
+];
 const memberLinks = [
-  { href: '/events', label: 'Upcoming' },
-  { href: '/create', label: 'Create' },
+  { href: '/', label: 'Home' },
+  { href: '/events', label: 'Upcoming Events' },
+  { href: '/create', label: 'Create Event' },
   { href: '/manage', label: 'Manage' },
   { href: '/joined', label: 'Joined' },
 ];
@@ -62,7 +68,11 @@ export function Navbar() {
   }, [path]);
 
   const links = user ? memberLinks : guestLinks;
-  const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
+  const isActive = (href: string) => {
+    if (href === '/') return path === '/';
+    if (href.startsWith('/#')) return false;
+    return path === href || path.startsWith(`${href}/`);
+  };
   const firstName = user?.name.split(' ')[0] ?? '';
 
   const handleSignOut = () => {

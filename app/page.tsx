@@ -85,7 +85,7 @@ export default function Home() {
       </section>
 
       {/* Community Impact Statistics Section */}
-      <section className="section" style={{ paddingTop: '20px', paddingBottom: '60px' }}>
+      <section id="impact" className="section" style={{ paddingTop: '20px', paddingBottom: '60px' }}>
         <div
           style={{
             background: 'var(--card)',
@@ -148,7 +148,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="section">
+      <section id="features" className="section">
         <div className="sectionhead">
           <div>
             <span className="eyebrow">MAKE AN IMPACT</span>
