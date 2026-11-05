@@ -14,6 +14,7 @@ export default function Events() {
   const [success, setSuccess] = useState('');
   const [search, setSearch] = useState('');
   const [selectedType, setSelectedType] = useState('All');
+  const [sortBy, setSortBy] = useState<'soonest' | 'latest' | 'title'>('soonest');
 
   useEffect(() => {
     const flash = sessionStorage.getItem('kindred-event-success');
@@ -46,6 +47,19 @@ export default function Events() {
     return () => clearTimeout(timer);
   }, [search, selectedType]);
 
+  const sortedEvents = [...events].sort((a, b) => {
+    if (sortBy === 'soonest') {
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    }
+    if (sortBy === 'latest') {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    }
+    if (sortBy === 'title') {
+      return a.title.localeCompare(b.title);
+    }
+    return 0;
+  });
+
   return (
     <section className="page">
       <div className="pageintro">
@@ -63,58 +77,93 @@ export default function Events() {
         </p>
       )}
 
-      {/* Search and Category Filter Bar */}
+      {/* Search, Sort, and Category Filter Controls */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           gap: '16px',
-          marginBottom: '36px',
+          marginBottom: '32px',
         }}
       >
-        <div style={{ position: 'relative', maxWidth: '540px' }}>
-          <input
-            type="text"
-            className="input w-full"
-            style={{ paddingLeft: '40px', paddingRight: search ? '36px' : '14px' }}
-            placeholder="Search by title or location (e.g. Mirpur, Dhaka)..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-          <span
-            style={{
-              position: 'absolute',
-              left: '14px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: 'var(--muted)',
-              pointerEvents: 'none',
-              fontSize: '15px',
-            }}
-          >
-            🔍
-          </span>
-          {search && (
-            <button
-              type="button"
-              onClick={() => setSearch('')}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '12px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div style={{ position: 'relative', flex: '1 1 300px', maxWidth: '540px' }}>
+            <input
+              type="text"
+              className="input w-full"
+              style={{ paddingLeft: '40px', paddingRight: search ? '36px' : '14px' }}
+              placeholder="Search by title or location (e.g. Mirpur, Dhaka)..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <span
               style={{
                 position: 'absolute',
-                right: '12px',
+                left: '14px',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'none',
-                border: 'none',
                 color: 'var(--muted)',
-                cursor: 'pointer',
+                pointerEvents: 'none',
                 fontSize: '15px',
-                padding: '4px',
               }}
-              aria-label="Clear search"
             >
-              ✕
-            </button>
-          )}
+              🔍
+            </span>
+            {search && (
+              <button
+                type="button"
+                onClick={() => setSearch('')}
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--muted)',
+                  cursor: 'pointer',
+                  fontSize: '15px',
+                  padding: '4px',
+                }}
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <label
+              htmlFor="sort-select"
+              style={{
+                fontSize: '13px',
+                fontWeight: '600',
+                color: 'var(--muted)',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Sort by:
+            </label>
+            <select
+              id="sort-select"
+              className="select select-bordered select-sm"
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value as 'soonest' | 'latest' | 'title')}
+              style={{ minWidth: '160px' }}
+            >
+              <option value="soonest">📅 Nearest First (Asc)</option>
+              <option value="latest">⏳ Latest First (Desc)</option>
+              <option value="title">🔤 Title (A to Z)</option>
+            </select>
+          </div>
         </div>
 
         <div
@@ -164,12 +213,25 @@ export default function Events() {
             correct.
           </p>
         </div>
-      ) : events.length ? (
-        <div className="grid">
-          {events.map(event => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
+      ) : sortedEvents.length ? (
+        <>
+          <p
+            className="muted"
+            style={{
+              fontSize: '13px',
+              marginTop: '-16px',
+              marginBottom: '20px',
+              fontWeight: 500,
+            }}
+          >
+            Showing {sortedEvents.length} upcoming {sortedEvents.length === 1 ? 'event' : 'events'}
+          </p>
+          <div className="grid">
+            {sortedEvents.map(event => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+        </>
       ) : (
         <div className="empty" style={{ textAlign: 'center', padding: '40px 20px' }}>
           <p style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
