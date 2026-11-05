@@ -98,11 +98,12 @@ export default function EditEvent() {
       <form className="eventform" onSubmit={submit}>
         <label>
           Event title
-          <input name="title" defaultValue={event.title} required />
+          <input className="input w-full" name="title" defaultValue={event.title} required />
         </label>
         <label>
           Description
           <textarea
+            className="textarea w-full"
             name="description"
             rows={5}
             defaultValue={event.description}
@@ -112,7 +113,7 @@ export default function EditEvent() {
         <div className="twocol">
           <label>
             Event type
-            <select name="type" defaultValue={event.type}>
+            <select className="select w-full" name="type" defaultValue={event.type}>
               <option>Cleanup</option>
               <option>Plantation</option>
               <option>Donation</option>
@@ -123,6 +124,7 @@ export default function EditEvent() {
           <label>
             Event date
             <input
+              className="input w-full"
               name="date"
               type="datetime-local"
               min={new Date().toISOString().slice(0, 16)}
@@ -133,18 +135,18 @@ export default function EditEvent() {
         </div>
         <label>
           Thumbnail image URL
-          <input name="image" type="url" defaultValue={event.image} required />
+          <input className="input w-full" name="image" type="url" defaultValue={event.image} required />
         </label>
         <label>
           Location
-          <input name="location" defaultValue={event.location} required />
+          <input className="input w-full" name="location" defaultValue={event.location} required />
         </label>
         {error && (
           <p className="error" role="alert">
             {error}
           </p>
         )}
-        <button className="button" disabled={saving}>
+        <button className="btn btn-primary" disabled={saving}>
           {saving ? 'Saving...' : 'Save changes →'}
         </button>
       </form>

@@ -62,6 +62,7 @@ export default function Login() {
         <label className="field">
           Email address
           <input
+            className="input w-full"
             name="email"
             type="email"
             placeholder="you@example.com"
@@ -81,7 +82,7 @@ export default function Login() {
             {error}
           </p>
         )}
-        <button className="button full" disabled={submitting}>
+        <button className="btn btn-primary btn-block" disabled={submitting}>
           {submitting ? 'Logging in...' : 'Log in →'}
         </button>
         <p className="formfoot">

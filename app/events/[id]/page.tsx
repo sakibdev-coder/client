@@ -62,7 +62,7 @@ export default function EventDetails() {
     <section className="detailpage">
       <img className="detailimage" src={event.image} alt={event.title} />
       <div className="detailcontent">
-        <span className="tag">{event.type}</span>
+        <span className="badge badge-accent">{event.type}</span>
         <h1>{event.title}</h1>
         <p className="lead">{event.description}</p>
         <div className="detailmeta">
@@ -82,7 +82,7 @@ export default function EventDetails() {
             {event.creatorName}
           </span>
         </div>
-        <button className="button" disabled={joining} onClick={join}>
+        <button className="btn btn-primary" disabled={joining} onClick={join}>
           {!user
             ? 'Log in to join →'
             : joining

@@ -45,7 +45,7 @@ export default function Events() {
       {loading ? (
         <div className="skeletongrid">
           {[1, 2, 3].map(i => (
-            <div className="skeleton" key={i} />
+            <div className="skeleton h-80 w-full" key={i} />
           ))}
         </div>
       ) : error ? (

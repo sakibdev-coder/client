@@ -72,7 +72,7 @@ export default function Manage() {
           <h1>Manage events</h1>
           <p>Update or remove the events you created.</p>
         </div>
-        <Link className="button" href="/create">
+        <Link className="btn btn-primary" href="/create">
           + New event
         </Link>
       </div>
@@ -91,18 +91,18 @@ export default function Manage() {
             <div className="manage-item" key={event.id}>
               <img src={event.image} alt={event.title} />
               <div>
-                <span className="tag">{event.type}</span>
+                <span className="badge badge-accent">{event.type}</span>
                 <h3>{event.title}</h3>
                 <p className="muted">
                   {event.location} · {new Date(event.date).toLocaleDateString()}
                 </p>
               </div>
               <div className="itemactions">
-                <Link className="outline small" href={`/manage/${event.id}`}>
+                <Link className="btn btn-outline btn-sm" href={`/manage/${event.id}`}>
                   Edit
                 </Link>
                 <button
-                  className="danger"
+                  className="btn btn-error btn-outline btn-sm"
                   onClick={() => setTargetEvent(event)}
                 >
                   Delete

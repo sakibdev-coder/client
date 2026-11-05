@@ -122,7 +122,7 @@ export function GoogleSignIn() {
         <span>or</span>
       </p>
       <button
-        className="google-btn"
+        className="btn btn-outline btn-block google-btn"
         type="button"
         disabled={!client || busy}
         onClick={() => {

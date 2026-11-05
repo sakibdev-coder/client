@@ -26,7 +26,7 @@ export function Footer() {
             your own street. Kindred is where those plans find people.
           </p>
         </div>
-        <Link className="button" href="/events">
+        <Link className="btn btn-primary" href="/events">
           Find an event <span>→</span>
         </Link>
       </div>
@@ -44,27 +44,29 @@ export function Footer() {
           </div>
 
           <nav className="footer-links" aria-label="Explore">
-            <strong>Explore</strong>
+            <h3 className="footer-title">Explore</h3>
             {explore.map(item => (
-              <Link key={item.href} href={item.href}>
+              <Link className="link link-hover" key={item.href} href={item.href}>
                 {item.label}
               </Link>
             ))}
           </nav>
 
           <nav className="footer-links" aria-label="Account">
-            <strong>Account</strong>
+            <h3 className="footer-title">Account</h3>
             {account.map(item => (
-              <Link key={item.href} href={item.href}>
+              <Link className="link link-hover" key={item.href} href={item.href}>
                 {item.label}
               </Link>
             ))}
           </nav>
 
           <div className="footer-links">
-            <strong>Visit</strong>
+            <h3 className="footer-title">Visit</h3>
             <p>Dhaka, Bangladesh</p>
-            <a href="mailto:hello@kindred.community">hello@kindred.community</a>
+            <a className="link link-hover" href="mailto:hello@kindred.community">
+              hello@kindred.community
+            </a>
           </div>
         </div>
 

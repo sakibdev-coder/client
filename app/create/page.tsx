@@ -64,6 +64,7 @@ export default function Create() {
         <label>
           Event title
           <input
+            className="input w-full"
             name="title"
             placeholder="e.g. Winter Clothes Distribution – Mirpur 10, Dhaka"
             required
@@ -72,6 +73,7 @@ export default function Create() {
         <label>
           Description
           <textarea
+            className="textarea w-full"
             name="description"
             rows={5}
             placeholder="What will happen at this event? Share how people can take part."
@@ -81,7 +83,7 @@ export default function Create() {
         <div className="twocol">
           <label>
             Event type
-            <select name="type" defaultValue="Donation">
+            <select className="select w-full" name="type" defaultValue="Donation">
               <option>Cleanup</option>
               <option>Plantation</option>
               <option>Donation</option>
@@ -92,6 +94,7 @@ export default function Create() {
           <label>
             Event date
             <input
+              className="input w-full"
               name="date"
               type="datetime-local"
               min={new Date().toISOString().slice(0, 16)}
@@ -102,6 +105,7 @@ export default function Create() {
         <label>
           Thumbnail image URL
           <input
+            className="input w-full"
             name="image"
             type="url"
             placeholder="https://images.unsplash.com/..."
@@ -111,6 +115,7 @@ export default function Create() {
         <label>
           Location
           <input
+            className="input w-full"
             name="location"
             placeholder="Area, City (e.g. Mirpur 10, Dhaka)"
             required
@@ -121,7 +126,7 @@ export default function Create() {
             {error}
           </p>
         )}
-        <button className="button" disabled={saving}>
+        <button className="btn btn-primary" disabled={saving}>
           {saving ? 'Publishing...' : 'Publish event →'}
         </button>
       </form>

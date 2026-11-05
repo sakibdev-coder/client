@@ -12,7 +12,7 @@ Kindred is a community-first event platform for discovering, joining, and organi
 - Join an event, then see joined events sorted by event date.
 - Manage, update, and delete only the events created by the signed-in user.
 - Sign in with email and password, or continue with Google.
-- Switch between light and dark themes on mobile, tablet, and desktop.
+- Switch between light and dark DaisyUI themes on mobile, tablet, and desktop.
 - See inline validation, loading, and success messages without browser alert pop-ups.
 
 ## Run locally

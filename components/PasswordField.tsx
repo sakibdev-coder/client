@@ -27,6 +27,7 @@ export function PasswordField({
       {label}
       <span className="field-control">
         <input
+          className="input w-full"
           name={name}
           id={id}
           type={visible ? 'text' : 'password'}

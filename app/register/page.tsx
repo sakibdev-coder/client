@@ -97,6 +97,7 @@ export default function Register() {
           <label className="field">
             Your name
             <input
+              className="input w-full"
               name="name"
               id="name"
               placeholder="Jane Doe"
@@ -107,6 +108,7 @@ export default function Register() {
           <label className="field">
             Email address
             <input
+              className="input w-full"
               name="email"
               id="email"
               type="email"
@@ -120,6 +122,7 @@ export default function Register() {
         <label className="field">
           Profile photo URL
           <input
+            className="input w-full"
             name="photoURL"
             id="photoURL"
             type="url"
@@ -157,7 +160,7 @@ export default function Register() {
             {error}
           </p>
         )}
-        <button className="button full" disabled={submitting}>
+        <button className="btn btn-primary btn-block" disabled={submitting}>
           {submitting ? 'Creating account...' : 'Create account →'}
         </button>
         <p className="formfoot">
